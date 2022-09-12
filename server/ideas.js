@@ -2,6 +2,7 @@ const express = require('express');
 const { base } = require('mocha/lib/reporters/index.js');
 const ideasRouter = express.Router();
 const morgan = require('morgan');
+const checkMillionDollarIdea = require('./checkMillionDollarIdea.js');
 
 const { 
     getAllFromDatabase, 
@@ -29,7 +30,7 @@ ideasRouter.get('/', (req, res, next) => {
     res.status(200).send(allIdeas);
 });
 
-ideasRouter.post('/', (req, res, next) => {
+ideasRouter.post('/', checkMillionDollarIdea, (req, res, next) => {
     let newIdea = addToDatabase('ideas', req.body);
     res.status(201).send(newIdea);
 });
